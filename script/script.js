@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // Função para fazer logout
 function logout() {
     localStorage.removeItem('currentUser');
-    window.location.href = 'src/login.html';
+    window.location.href = '../src/login.html';
 }
 const USER_KEY = 'currentUser';
 
