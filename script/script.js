@@ -3,6 +3,27 @@ function getStorageKey() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     return user ? `tasks_${user.email}` : 'tasks';
 }
+
+// Verifica se há usuário logado ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user && window.location.pathname.includes('login.html')) {
+        window.location.href = '../index.html';
+    }
+
+    // Verificar tarefas pendentes a cada 24 horas
+    setInterval(() => {
+        const storageKey = getStorageKey();
+        const tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
+        checkTaskDeadlines(tasks);
+    }, 24 * 60 * 60 * 1000); // 24 horas em milissegundos
+});
+
+// Função para fazer logout
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'src/login.html';
+}
 const USER_KEY = 'currentUser';
 
 // Alternar visibilidade da senha
@@ -36,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const phone = '+55' + document.getElementById('phone').value.replace(/\D/g, '');
 
             // Obter usuários existentes ou criar array vazio
             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -47,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Adicionar novo usuário
-            users.push({ name, email, password });
+            users.push({ name, email, password, phone });
             localStorage.setItem('users', JSON.stringify(users));
 
             // Mostrar mensagem de sucesso e redirecionar
@@ -118,6 +140,50 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Função para enviar notificação via WhatsApp
+function sendWhatsAppNotification(task) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user && user.phone) {
+        const phone = user.phone.replace(/\D/g, ''); // Remover caracteres não numéricos
+        const message = encodeURIComponent(`Lembrete: Sua tarefa "${task.title}" vence amanhã!`);
+        const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+
+        // Abre nova janela e força o envio após 2 segundos
+        const newWindow = window.open(whatsappUrl, '_blank');
+
+        // Simula clique no botão de enviar após a página carregar
+        setTimeout(() => {
+            if (newWindow) {
+                newWindow.document.querySelector('button[aria-label="Enviar"]').click();
+                setTimeout(() => newWindow.close(), 1000);
+            }
+        }, 2000);
+    }
+}
+
+// Função para testar o sistema de mensagens
+function testWhatsAppNotification() {
+    const testTask = {
+        title: 'Tarefa de Teste',
+        date: new Date().toISOString().split('T')[0]
+    };
+
+    // Simular usuário com telefone cadastrado
+    localStorage.setItem('currentUser', JSON.stringify({
+        name: 'Usuário Teste',
+        email: 'teste@example.com',
+        phone: '5511999999999'
+    }));
+
+    // Chamar função de notificação
+    sendWhatsAppNotification(testTask);
+
+    // Limpar usuário de teste
+    localStorage.removeItem('currentUser');
+
+    alert('Teste de notificação via WhatsApp iniciado! Verifique se a mensagem foi enviada.');
+}
+
 // Funções para manipulação de tarefas
 function addTask(title, date, priority) {
     if (!title || !date) return;
@@ -184,6 +250,26 @@ function deleteTask(index) {
 function checkTaskDeadlines(tasks) {
     const now = new Date();
     const alarmSound = new Audio('./assets/alert.mp3');
+
+    // Verificar tarefas próximas do vencimento (1 dia antes)
+    tasks.forEach(task => {
+        const taskDate = new Date(task.date);
+        const diffTime = taskDate - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 1 && !task.notified) {
+            sendWhatsAppNotification(task);
+            task.notified = true;
+
+            const storageKey = getStorageKey();
+            const updatedTasks = JSON.parse(localStorage.getItem(storageKey)) || [];
+            const taskIndex = updatedTasks.findIndex(t => t.id === task.id);
+            if (taskIndex !== -1) {
+                updatedTasks[taskIndex].notified = true;
+                localStorage.setItem(storageKey, JSON.stringify(updatedTasks));
+            }
+        }
+    });
     alarmSound.load();
 
     tasks.forEach(task => {

@@ -46,6 +46,7 @@
                         </div>
                     </div>
                     <button type="submit">Adicionar Tarefa</button>
+                    <button type="button" id="logoutBtn" style="margin-left: 10px;">Sair</button>
                 </form>
             </section>
 
@@ -59,6 +60,9 @@
     </div>
 
     <script src="../script/script.js"></script>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+    </script>
 </body>
 
 </html>

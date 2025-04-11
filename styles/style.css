@@ -246,6 +246,8 @@ button:hover {
     text-decoration: underline;
 }
 
+
+
 /* Responsividade */
 @media (max-width: 600px) {
     .container {
