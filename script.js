@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('users', JSON.stringify(users));
 
             // Mostrar mensagem de sucesso e redirecionar
-            alert('<b>Cadastro realizado com sucesso!</b>');
+            alert('Cadastro realizado com sucesso!');
             window.location.href = 'login.html';
         });
     }
