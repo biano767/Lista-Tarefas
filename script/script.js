@@ -24,6 +24,43 @@ function logout() {
     localStorage.removeItem('currentUser');
     window.location.href = '../src/login.html';
 }
+
+function updateUserProfile() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user) return;
+
+    const newName = prompt('Novo nome:', user.name);
+    const newEmail = prompt('Novo e-mail:', user.email);
+    const newPhone = '+55' + prompt('Novo telefone (apenas números):', user.phone.replace('+55', '')).replace(/\D/g, '');
+
+    if (newName && newEmail && newPhone) {
+        // Obter todos os usuários
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Verificar se o novo email já existe (exceto para o usuário atual)
+        if (users.some(u => u.email === newEmail && u.email !== user.email)) {
+            alert('Este e-mail já está cadastrado por outro usuário!');
+            return;
+        }
+
+        // Atualizar dados do usuário
+        user.name = newName;
+        user.email = newEmail;
+        user.phone = newPhone;
+
+        // Atualizar currentUser no localStorage
+        localStorage.setItem('currentUser', JSON.stringify(user));
+
+        // Atualizar na lista de usuários
+        const userIndex = users.findIndex(u => u.email === user.email);
+        if (userIndex !== -1) {
+            users[userIndex] = user;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        alert('Perfil atualizado com sucesso!');
+    }
+}
 const USER_KEY = 'currentUser';
 
 // Alternar visibilidade da senha
