@@ -1,0 +1,28 @@
+# Dependências
+node_modules/
+
+# Expo
+.expo/
+
+# Ambiente
+.env
+
+# Logs
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+build/
+
+# Android
+android/app/build/
+android/.gradle/
+
+# iOS
+ios/build/

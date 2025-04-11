@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1242" height="2436" viewBox="0 0 1242 2436">
+  <rect width="1242" height="2436" fill="#4A6FFF"/>
+  <path d="M621 1000C448.6 1000 309 1139.6 309 1312s139.6 312 312 312 312-139.6 312-312S793.4 1000 621 1000zm0 564c-139.1 0-252-112.9-252-252s112.9-252 252-252 252 112.9 252 252-112.9 252-252 252z" fill="white"/>
+  <path d="M621 1150c-89.7 0-162 72.3-162 162s72.3 162 162 162 162-72.3 162-162-72.3-162-162-162zm0 264c-56.5 0-102-45.5-102-102s45.5-102 102-102 102 45.5 102 102-45.5 102-102 102z" fill="white"/>
+  <circle cx="621" cy="1312" r="50" fill="white"/>
+  <path d="M759 1200l-200 200M509 1200l200 200" stroke="white" stroke-width="30" stroke-linecap="round"/>
+  <text x="621" y="1600" font-family="Arial" font-size="80" text-anchor="middle" fill="white">Gerenciador de Tarefas</text>
+</svg>

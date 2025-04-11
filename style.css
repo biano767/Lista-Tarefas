@@ -1,0 +1,264 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2196F3;
+    margin-bottom: 10px;
+}
+
+.task-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.task-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0b7dda;
+}
+
+.task-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-list h2 {
+    margin-bottom: 20px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos para as tarefas */
+.task-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos para prioridades */
+.priority-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.priority-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.priority-high {
+    color: #f44336;
+}
+
+.priority-medium {
+    color: #2196F3;
+}
+
+.priority-low {
+    color: #4CAF50;
+}
+
+.task-high {
+    color: #f44336;
+}
+
+.task-medium {
+    color: #2196F3;
+}
+
+.task-low {
+    color: #4CAF50;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-info {
+    flex: 1;
+}
+
+.task-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.task-date {
+    color: #666;
+    font-size: 14px;
+}
+
+.paid-badge {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.task-actions button {
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.task-actions button.delete {
+    background-color: #f44336;
+}
+
+.task-actions button.delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilo para tarefas próximas do prazo */
+.task-near {
+    border-left: 4px solid #ff9800;
+    padding-left: 11px;
+}
+
+.task-near .task-title {
+    color: #e65100;
+}
+
+.task-near .near-badge {
+    background-color: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+/* Estilos para formulários de login/cadastro */
+.login-form,
+.register-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 35px;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.register-link,
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-link a,
+.login-link a {
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.register-link a:hover,
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-actions {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
