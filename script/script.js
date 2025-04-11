@@ -7,7 +7,7 @@ function getStorageKey() {
 // Verifica se há usuário logado ao carregar a página
 window.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user && window.location.pathname.includes('login.html')) {
+    if (user && !window.location.pathname.includes('index.html')) {
         window.location.href = '../index.html';
     }
 
